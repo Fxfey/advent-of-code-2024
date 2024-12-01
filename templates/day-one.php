@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Template Name: Day 1
+ * Template Name: Day One
  * Template Post Type: post
 */
 

@@ -118,3 +118,25 @@ add_filter('style_loader_src', 'removeWpVersionStrings');
 
 // Disable XML-RPC
 add_filter('xmlrpc_enabled', '__return_false');
+
+
+function registerCustomPostTemplates($templates)
+{
+    // Add templates to the array with folder paths
+    $templates['templates/day-one.php'] = __('Day One');
+    return $templates;
+}
+add_filter('theme_post_templates', 'registerCustomPostTemplates');
+
+function locatePostTemplate($template)
+{
+    $template_slug = get_page_template_slug();
+    if ($template_slug && strpos($template_slug, 'templates/') === 0) {
+        $custom_template = locate_template($template_slug);
+        if ($custom_template) {
+            return $custom_template;
+        }
+    }
+    return $template;
+}
+add_filter('template_include', 'locatePostTemplate');
