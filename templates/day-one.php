@@ -20,13 +20,31 @@ $arrayOfLocationsTwo = [
 sort($arrayOfLocationsOne);
 sort($arrayOfLocationsTwo);
 
+$arrayOfLocationsTwoValueTotals = array_count_values($arrayOfLocationsTwo);
+
 $differenceOfLocations = [];
+$similaritySumArray = [];
 
 for ($index = 0; $index < sizeof($arrayOfLocationsOne); $index++) {
     $locationDifference = abs($arrayOfLocationsOne[$index] - $arrayOfLocationsTwo[$index]);
-    array_push($differenceOfLocations, $locationDifference);
+
+    array_push(
+        $differenceOfLocations,
+        $locationDifference
+    );
+
+    if (isset($arrayOfLocationsTwoValueTotals[$arrayOfLocationsOne[$index]])) {
+        array_push(
+            $similaritySumArray,
+            $arrayOfLocationsOne[$index] * $arrayOfLocationsTwoValueTotals[$arrayOfLocationsOne[$index]]
+        );
+    }
 }
 
-echo array_sum($differenceOfLocations);
+// Part One Answer
+$sumOfLocationDifference = array_sum($differenceOfLocations);
+// echo $sumOfLocationDifference;
 
-// Day 1 [b]
+// Part Two Answer
+$similaritySum = array_sum($similaritySumArray);
+// echo $similaritySum;
